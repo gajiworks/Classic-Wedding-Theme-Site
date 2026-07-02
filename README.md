@@ -1,4 +1,4 @@
-# ClassicThemeWedding
+# Classic Theme Wedding
 
 ClassicThemeWedding is a responsive Blazor wedding website styled as a Classic White Elegance invitation. It uses white, ivory, champagne, and soft-gold details with editorial layouts, subtle paper textures, and restrained animations.
 
