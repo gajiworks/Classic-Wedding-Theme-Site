@@ -1,0 +1,222 @@
+@page "/"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+@inject IConfiguration Configuration
+@implements IAsyncDisposable
+
+<PageTitle>Ali &amp; Dave | Luna & Lace Events</PageTitle>
+
+<header class="site-header">
+    <nav class="navbar shell" aria-label="Main navigation">
+        <a class="brand" href="#home">
+            Luna & Lace Events
+        </a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="hero-layout shell">
+            <div class="hero-content">
+                <p class="hero-monogram">A <span></span> D</p>
+                <p class="eyebrow">Together with their families</p>
+                <h1>Ali <span>&amp;</span> Dave</h1>
+                <div class="gold-divider" aria-hidden="true"><i></i><b>&diams;</b><i></i></div>
+                <p class="wedding-date">August 23, 2027</p>
+            </div>
+            <div class="hero-image-frame">
+                <img class="hero-image" src="/images/wedding/hero-romantic-pastel.png" alt="Ali and Dave, the wedding couple" />
+            </div>
+        </div>
+    </section>
+
+    <section class="section shell story-section" id="story">
+        <div class="section-heading" data-reveal><p class="eyebrow">How it all began</p><h2>Our Story</h2></div>
+        <div class="story-layout">
+            <div class="story-image-frame" data-reveal="left">
+                <img class="story-image" src="/images/wedding/story-couple-portrait.png" alt="Wedding couple portrait" loading="lazy" />
+            </div>
+            <div class="story-copy" data-reveal="right" style="--reveal-delay: .14s">
+                <p class="story-label">Our Journey</p>
+                <h3>Every love story is beautiful, but ours is our favorite.</h3>
+                <div class="story-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+                <p>From simple moments to unforgettable memories, our journey has been filled with love, faith, and the people who mean the most to us. We are grateful to celebrate this new chapter surrounded by family and friends.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+
+    <section class="section details-section" id="details"><div class="shell">
+        <div class="section-heading" data-reveal><p class="eyebrow">Save the date</p><h2>Wedding Details</h2></div>
+        <div class="detail-grid">
+            <article class="detail-card" data-reveal style="--reveal-delay: 0s">
+                <div class="detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" focusable="false"><path d="M8 41h32M11 41V22h26v19M18 41V29h12v12M8 22h32L24 9 8 22Zm13-5V7h6v10M16 26h3m10 0h3" /></svg>
+                </div>
+                <p class="detail-label">Wedding Ceremony</p>
+                <h3>Ceremony</h3>
+                <div class="detail-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+                <p class="detail-place">San Agustin Church</p>
+                <p class="detail-meta">Manila City</p>
+                <p class="detail-time">2:00 PM</p>
+            </article>
+            <article class="detail-card featured" data-reveal style="--reveal-delay: .15s; --reveal-end-transform: translateY(-10px)">
+                <div class="detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" focusable="false"><path d="m14 8 4 14c1 4 3 6 6 6s5-2 6-6L34 8H14Zm3 11h14M24 28v12m-6 0h12M9 10l3 2m27-2-3 2M12 5l2 2m22-2-2 2" /></svg>
+                </div>
+                <p class="detail-label">The Reception</p>
+                <h3>Reception</h3>
+                <div class="detail-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+                <p class="detail-place">The Peninsula Manila</p>
+                <p class="detail-meta">Makati City</p>
+                <p class="detail-time">5:00 PM</p>
+            </article>
+            <article class="detail-card" data-reveal style="--reveal-delay: .30s">
+                <div class="detail-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" focusable="false"><path d="M10 13h28v27H10V13Zm0 9h28M17 8v10m14-10v10M17 28h5m4 0h5m-14 6h5m4 0h5" /></svg>
+                </div>
+                <p class="detail-label">Save The Date</p>
+                <h3>Date</h3>
+                <div class="detail-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+                <p class="detail-place">Saturday</p>
+                <p class="detail-meta">August 23, 2027</p>
+            </article>
+        </div>
+    </div></section>
+
+    <div class="section-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+
+    <section class="section gallery-section" id="gallery">
+        <div class="shell">
+            <div class="section-heading" data-reveal><p class="eyebrow">Memories together</p><h2>Our Gallery</h2></div>
+            <div class="gallery-grid">
+                @for (var index = 0; index < GalleryImages.Length; index++)
+                {
+                    var image = GalleryImages[index];
+                    var revealDelay = $"--reveal-delay: {Math.Min(index * 0.1, 0.6):0.00}s";
+                    <button class="gallery-card" type="button" data-reveal style="@revealDelay" @onclick="() => OpenGalleryImage(image)" aria-label="Open @image.Alt">
+                        <img class="gallery-photo" src="@image.Source" alt="@image.Alt" loading="lazy" />
+                    </button>
+                }
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider" aria-hidden="true"><span></span><b>&diams;</b><span></span></div>
+
+    <section class="section rsvp-section" id="rsvp">
+        <div class="rsvp-card shell-narrow" data-reveal>
+            <div class="rsvp-seal" aria-hidden="true"><span>A</span><i>&amp;</i><span>D</span></div>
+            <div class="section-heading"><p class="eyebrow">Kindly reply</p><h2>Will You Join Us?</h2></div>
+            <p class="rsvp-intro">We would be delighted to celebrate this special day with you. Please share your response below.</p>
+            <form class="rsvp-form" action="https://api.staticforms.dev/submit" method="post" novalidate>
+                <!-- The real StaticForms API key is injected during deployment using the STATIC_FORMS_API_KEY secret. -->
+                <input type="hidden" name="apiKey" value="@StaticFormsApiKey" />
+                <input type="hidden" name="subject" value="New Ali and Dave Wedding RSVP" />
+                <label>Full Name<input type="text" name="name" placeholder="Your name" autocomplete="name" required /></label>
+                <label>Message<textarea name="message" rows="4" placeholder="Share a little note" required></textarea></label>
+                <input class="honeypot-field" type="text" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <button class="button" type="submit" data-submit-label="Yes, I’ll Be There">Yes, I&rsquo;ll Be There</button>
+                <p class="rsvp-form-status" role="status" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer" id="contact">
+    <div class="footer-monogram" aria-hidden="true"><span></span><b>A&nbsp;&nbsp;D</b><span></span></div>
+    <p class="footer-names">Ali <span>&amp;</span> Dave</p>
+    <p>Thank you for celebrating with us.</p>
+    <small>August 23, 2027</small>
+</footer>
+
+@if (SelectedGalleryImage is not null)
+{
+    <div class="gallery-modal" role="dialog" aria-modal="true" aria-label="Wedding gallery photo preview" @onclick="CloseGalleryImage">
+        <div class="gallery-modal-content" @onclick:stopPropagation="true">
+            <button class="gallery-modal-close" type="button" aria-label="Close gallery preview" @onclick="CloseGalleryImage">&times;</button>
+            <img src="@SelectedGalleryImage.Source" alt="@SelectedGalleryImage.Alt" />
+        </div>
+    </div>
+}
+
+<div class="rsvp-success-modal" id="rsvp-success-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="rsvp-success-title">
+    <div class="rsvp-success-panel">
+        <div class="rsvp-success-header">
+            <h2 id="rsvp-success-title">RSVP Sent</h2>
+            <button class="rsvp-success-close" type="button" aria-label="Close RSVP confirmation">&times;</button>
+        </div>
+        <div class="rsvp-success-content">
+            <p>Thank you for your response! We&rsquo;re delighted to celebrate this special day with you.</p>
+            <button class="button rsvp-success-close" type="button">Done</button>
+            <small>Your RSVP has been received successfully.</small>
+        </div>
+    </div>
+</div>
+
+@code {
+    private GalleryItem? SelectedGalleryImage { get; set; }
+    private DotNetObjectReference<Home>? GalleryReference { get; set; }
+    private bool IsInteractiveRenderInitialized { get; set; }
+    private string StaticFormsApiKey => Configuration["STATIC_FORMS_API_KEY"] ?? "__STATIC_FORMS_API_KEY__";
+
+    private static readonly GalleryItem[] GalleryImages =
+    [
+        new("/images/wedding/gallery-closeup-garden-path.png", "Ali and Dave wedding portrait"),
+        new("/images/wedding/gallery-terrace.png", "Ali and Dave on the terrace"),
+        new("/images/wedding/gallery-walking-garden.png", "Ali and Dave walking together"),
+        new("/images/wedding/gallery-courtyard-building.png", "Ali and Dave in the courtyard"),
+        new("/images/wedding/gallery-side-back-walk.png", "Ali and Dave wedding day moment"),
+        new("/images/wedding/gallery-front-courtyard.png", "Ali and Dave formal portrait"),
+        new("/images/wedding/wed-invitation.png", "Classic wedding invitation detail")
+    ];
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("weddingMotion.init");
+            await JS.InvokeVoidAsync("weddingRsvp.init");
+            IsInteractiveRenderInitialized = true;
+        }
+    }
+
+    private async Task OpenGalleryImage(GalleryItem image)
+    {
+        SelectedGalleryImage = image;
+        GalleryReference ??= DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("weddingGallery.open", GalleryReference);
+    }
+
+    private async Task CloseGalleryImage()
+    {
+        SelectedGalleryImage = null;
+        await JS.InvokeVoidAsync("weddingGallery.close");
+        await InvokeAsync(StateHasChanged);
+    }
+
+    [JSInvokable]
+    public Task CloseGalleryFromEscape()
+    {
+        return CloseGalleryImage();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (IsInteractiveRenderInitialized)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("weddingGallery.close");
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+
+        GalleryReference?.Dispose();
+    }
+
+    private sealed record GalleryItem(string Source, string Alt);
+}
